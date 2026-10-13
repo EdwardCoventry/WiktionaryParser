@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "tasks": {
+    "check": [
+      {
+        "name": "Python syntax and undefined names",
+        "command": [
+          ".venv/Scripts/python.exe",
+          "-m",
+          "flake8",
+          "wiktionaryparser",
+          "tests",
+          "--count",
+          "--select=E9,F63,F7,F82",
+          "--show-source",
+          "--statistics"
+        ],
+        "cwd": "."
+      },
+      {
+        "name": "Python tests",
+        "command": [".venv/Scripts/python.exe", "-m", "pytest"],
+        "cwd": "."
+      }
+    ],
+    "release-check": [
+      {
+        "name": "Build Python distributions",
+        "command": [".venv/Scripts/python.exe", "-m", "build"],
+        "cwd": "."
+      },
+      {
+        "name": "Distribution metadata",
+        "command": [
+          ".venv/Scripts/python.exe",
+          "-m",
+          "twine",
+          "check",
+          "dist/*"
+        ],
+        "cwd": "."
+      }
+    ]
+  }
+}
